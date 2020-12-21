@@ -1,0 +1,29 @@
+﻿@model List<Card>
+@{
+    ViewData["Title"] = "All Cards";
+}
+<head>
+</head>
+<div class="container" style="background-color:#D4E6F1">
+
+    <h1 class="text-center">
+        All Cards in Clash Royale
+    </h1>
+    <div class="text-center">
+
+        <!--Cycles through all cards in the game displaying them and linking to associated wiki page-->
+        @if(Model != null) { 
+        @foreach (Card card in Model)
+        {
+            <div class="card-deck d-inline-block">
+                <a href="https://clashroyale.fandom.com/wiki/@card.Name">
+                    <img class="card-img-top" src="@card.Url" width="64px;" />
+                </a>
+                <a href="https://clashroyale.fandom.com/wiki/@card.Name">
+                    <h5 class="card-text">@card.Name</h5>
+                </a>
+            </div>
+        }}
+    </div>
+
+</div>

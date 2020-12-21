@@ -1,0 +1,84 @@
+﻿@model HomePageModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <img class="" src="~/bin/imgs/maxresdefault.jpg" />
+    <div class="homeform">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-group">
+                <ul class="nav nav-tabs">
+
+                    <!--Buttons to select what you're searching by, see handy JS at bottom-->
+                    <li class="nav-item">
+                        <button id="$playerButton" class="nav-link active" type="submit" onclick="">Player</button>
+                    </li>
+
+                    <li class="nav-item">
+                        <button id="$clanButton" class="nav-link" type="button" onclick="setClanActive()">Clan</button>
+                    </li>
+                </ul>
+
+                <!--two forum inputs adding to seperate models and directing to different pages toggled in JS via onclick of above items-->
+                <form id="$playerForm" class="" method="post">
+
+                    <input id="$playerInput" class="form-control" asp-for="Player.Tag" placeholder="Example:#29PGJURQL" />
+                    <button id="$playerSubmitButton" class="btn-primary float-left" asp-controller="Players" asp-action="Players" type="submit">Get Player Data</button>
+                </form>
+
+                <form id="$clanForm" class="" method="post" >
+                    <input id="$clanInput" class="form-control" type="hidden" asp-for="Clan.Tag" placeholder="Example:#8CYPL8R" />
+                    <button id="$clanSubmitButton" style="display:none" class="btn-primary float-left" asp-controller="Players" asp-action="Clans" type="submit">Get Clan Data</button>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+<script>
+    var playerButton = document.getElementById("$playerButton");
+    var clanButton = document.getElementById("$clanButton");
+
+    var playerForm = document.getElementById("$playerForm");
+    var playerInput = document.getElementById("$playerInput");
+    var clanForm = document.getElementById("$clanForm");
+    var clanInput = document.getElementById("$clanInput");
+    var playerSubmitButton = document.getElementById("$playerSubmitButton");
+    var clanSubmitButton = document.getElementById("$clanSubmitButton");
+
+    playerButton.onclick = this.setPlayerActive.bind(this);
+    clanButton.onclick = this.setClanActive.bind(this);
+
+    function setPlayerActive() {
+        playerButton.classList.add('active');
+        clanButton.classList.remove('active');
+
+
+        clanInput.type = "hidden";
+        clanSubmitButton.style.display = "none";
+
+        playerInput.type = "";
+        playerSubmitButton.style.display = "";
+
+        clanButton.onclick = setClanActive.bind(this);
+        playerButton.onclick = "";
+    }
+    function setClanActive() {
+        clanButton.classList.add('active');
+        playerButton.classList.remove('active');
+
+
+        clanInput.type = "";
+        clanSubmitButton.style.display = "";
+
+        playerInput.type = "hidden";
+        playerSubmitButton.style.display = "none";
+
+        playerButton.onclick = setPlayerActive.bind(this);
+        clanButton.onclick = "";
+    }
+</script>
